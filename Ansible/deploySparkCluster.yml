@@ -1,0 +1,33 @@
+- name: Spark Cluster Deploy and Configuration
+  hosts: spark
+  tasks:
+
+  - name: Installing dependencies to run a Spark Cluster
+    apt:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+      - default-jdk
+      - scala
+    become: true
+
+  - name: Extracting spark-2.4.3-bin-hadoop2.7.tgz into /opt/
+    unarchive:
+      src: http://mirrors.up.pt/pub/apache/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz
+      dest: /opt/
+      remote_src: yes
+    become: yes
+
+  - name: Starting the Master Node
+    command: /opt/spark-2.4.3-bin-hadoop2.7/sbin/start-master.sh
+    when: ansible_facts['hostname'] == "master"
+    tags:
+      - start_master
+
+  - name: Starting the Slaves Node
+    command: /opt/spark-2.4.3-bin-hadoop2.7/sbin/start-slave.sh spark://"{{ hostvars['master']['ansible_facts']['eth0']['ipv4']['address'] }}":7077
+    when: ansible_facts['hostname'] != "master"
+    tags:
+      - start_slaves
