@@ -20,14 +20,29 @@
       remote_src: yes
     become: yes
 
-  - name: Starting the Master Node
-    command: /opt/spark-2.4.3-bin-hadoop2.7/sbin/start-master.sh
-    when: ansible_facts['hostname'] == "master"
-    tags:
-      - start_master
+  - name: Configuring the Spark workers (slaves)
+    copy:
+      dest: "/opt/spark-2.4.3-bin-hadoop2.7/conf/slaves"
+      owner: sparkadmin
+      group: sparkadmin
+      mode: 0644
+      content: |
+        slave1
+        slave2
 
-  - name: Starting the Slaves Node
-    command: /opt/spark-2.4.3-bin-hadoop2.7/sbin/start-slave.sh spark://"{{ hostvars['master']['ansible_facts']['eth0']['ipv4']['address'] }}":7077
-    when: ansible_facts['hostname'] != "master"
-    tags:
-      - start_slaves
+  - name: Deploying the Spark unit file
+    copy:
+      src: spark.service
+      dest: /etc/systemd/system
+      owner: root
+      group: root
+      mode: 0755
+    become: yes
+
+  - name: Starting the Spark Cluster
+    systemd:
+      state: started
+      enabled: yes
+      daemon_reload: yes
+      name: spark
+    become: yes
