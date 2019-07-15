@@ -73,6 +73,7 @@ resource "azurerm_network_interface" "nic" {
     location                  = "West Europe"
     resource_group_name       = "${azurerm_resource_group.rg.name}"
     network_security_group_id = "${azurerm_network_security_group.nsg.id}"
+    count                     = 3
 
     ip_configuration {
         name                          = "sparkNICConfig-${count.index}"
