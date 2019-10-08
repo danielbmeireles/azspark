@@ -1,16 +1,17 @@
 # azspark
-Tech Challenge - DTB Hub
+
+## 🚚 Tech Challenge - DTB Hub
 
 This document describes the implementantion process of a Spark cluster with 1 (one) master node and 2 (two) slaves nodes.
 
 The main documentation used to understand the basics of the software installation, configuration and administration can be found at:
 
- - Apache Spark Home Page: https://spark.apache.org
- - Installation Process: https://spark.apache.org/docs/2.4.0/#launching-on-a-cluster
- 
-The infrastructure used to deploy the solution was entirely based on Microsoft Azure. A free / trial account was used in order to implement the network, virtual machines, persistence (storage) and any other computational resources used in this laboratory.   
- 
-## How to implement the Azure Virtual Infrastructure
+- Apache Spark Home Page: <https://spark.apache.org>
+- Installation Process: <https://spark.apache.org/docs/2.4.0/#launching-on-a-cluster>
+
+The infrastructure used to deploy the solution was entirely based on Microsoft Azure. A free / trial account was used in order to implement the network, virtual machines, persistence (storage) and all other computational resources used in this laboratory.
+
+## ☁ How to implement the Azure Virtual Infrastructure
 
 1. From the Azure Portal, start a Cloud Shell terminal (the system will create a Resource Group and a persistence layer automaticaly in order to launch the application).
 
@@ -25,7 +26,7 @@ PS /home/username> cd ./clouddrive/
 PS /home/username/clouddrive> ./deploySparkInfrastructure.ps1
 ~~~~
 
-## How to implement the Spark cluster
+## 💡 How to implement the Spark cluster
 
 An Ansible Playbook is available in order to deploy the Spark cluster. However, some pre-deployment steps are necessary in order to install and configure the Ansible itself.
 
