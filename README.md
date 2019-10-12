@@ -1,6 +1,6 @@
-# azspark
+# 🚚 azspark
 
-## 🚚 Tech Challenge - DTB Hub
+## 👩🏿‍💻 Tech Challenge - DTB Hub
 
 This document describes the implementantion process of a Spark cluster with 1 (one) master node and 2 (two) slaves nodes.
 
